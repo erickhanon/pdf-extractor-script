@@ -52,12 +52,13 @@ O backend é construído usando Node.js com Express e TypeScript.
    ```
 3. Configure as variáveis de ambiente no arquivo `.env`:
    ```env
-   DATABASE_URL="postgresql://admin:qwerty%21%40%23123@localhost:5432/PDF_DB"
+   DATABASE_URL=postgresql://admin:qwerty!@#123@localhost:5432/PDF_DB
    ```
 4. Execute o servidor:
    ```bash
    npm run dev
    ```
+
 
 ## Script de Extração
 
@@ -67,7 +68,7 @@ O script de extração é construído usando Python.
 
 ### Funcionalidades
 - Extração de dados de PDFs
-- Processamento e formatação dos dados extraídos
+- Envio dos dados extraídos para o backend
 
 ### Instalação e Execução
 1. Clone o repositório:
@@ -79,35 +80,21 @@ O script de extração é construído usando Python.
    ```bash
    python -m venv venv
    source venv/bin/activate  # No Windows use `venv\Scripts\activate`
-   pip install -r requirements.txt
+   pip install PyPDF2 requests
    ```
-3. Execute o script passando o caminho do PDF como argumento:
+3. Estrutura de diretórios:
+   Certifique-se de que a estrutura de diretórios esteja da seguinte forma:
+   ```
+   pdf-extractor-script/
+   ├── pdf-extract.py
+   └── pdf/
+       └── seus-arquivos-pdf-aqui.pdf
+   ```
+
+4. Execute o script:
    ```bash
-   python extract.py caminho/para/o/arquivo.pdf
+   python pdf-extract.py
    ```
-
-### Gerando `requirements.txt`
-Se você não tiver um `requirements.txt`, você pode gerá-lo com o comando:
-```bash
-pip freeze > requirements.txt
-```
-
-### Exemplo de script `extract.py` com `argparse`
-```python
-import argparse
-# Supondo que você tenha funções para extrair dados do PDF
-from pdf_extractor import extract_data
-
-def main(pdf_path):
-    data = extract_data(pdf_path)
-    print(data)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extrai dados de um PDF.")
-    parser.add_argument("pdf_path", type=str, help="Caminho para o arquivo PDF.")
-    args = parser.parse_args()
-    main(args.pdf_path)
-```
 
 ## Banco de Dados
 
